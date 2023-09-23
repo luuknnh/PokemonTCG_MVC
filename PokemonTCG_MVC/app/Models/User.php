@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
+
+    protected $table = 'User';
     protected $fillable = [
-        'Username', 'EmailAddress', 'UserPassword', 'CreatedOn', 'Role',
+        'username', 'emailaddress', 'userpassword', 'role', 'created_at',
     ];
 
-    protected $primaryKey = 'UserId';
+    protected $primaryKey = 'userid';
 
-    public $timestamps = false; // Zorgt ervoor dat de timestamps niet worden ingevuld
-
-
+    public $timestamps = true; 
+   
 }

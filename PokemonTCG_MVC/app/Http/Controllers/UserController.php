@@ -9,8 +9,28 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all(); // Haal alle gebruikers op uit de database
+        $users = User::all(); 
 
-        return view('users', compact('users')); // Stuur de gebruikersgegevens naar de weergave
+        return view('users', compact('users')); 
     }
+
+    public function create()
+{
+    return view('create_user');
+}
+
+public function store(Request $request)
+{
+    // Valideer en sla de nieuwe gebruiker op in de database
+    $data = $request->validate([
+        'username' => 'required',
+        'emailaddress' => 'required|email',
+        'userpassword' => 'required',
+        'role' => 'required',
+    ]);
+
+    User::create($data); // Creëer een nieuwe gebruiker in de database
+
+    return redirect('/users'); // Stuur de gebruiker terug naar de lijst met gebruikers
+}
 }
