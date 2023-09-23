@@ -17,13 +17,14 @@
         </style>
     </head>
     <body class="antialiased">
-            <div class="flex justify-center items-center w-screen h-screen">
-                @foreach ($users as $user)
-                    <div class="bg-white shadow-lg rounded-lg px-4 py-6 m-4">
-                        <h2 class="text-2xl font-bold">{{ $user['first_name'] }} {{ $user['last_name'] }}</h2>
-                        <h3 class="text-xl">{{ $user['location'] }}</h3>
-                    </div>
-                @endforeach
-            </div>
+    <h1>Gebruikerslijst</h1>
+    <ul>
+        @foreach($users as $user)
+            <li>
+                <strong>Gebruikersnaam:</strong> {{ $user->username }}<br>
+                <strong>E-mail:</strong> {{ $user->email }}<br>
+            </li>
+        @endforeach
+    </ul>
     </body>
 </html>
