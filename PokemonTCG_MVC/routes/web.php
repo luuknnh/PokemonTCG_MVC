@@ -3,12 +3,15 @@
 use Illuminate\Support\Facades\Route;
 
 
-// Users for development
 Route::middleware(['auth'])->group(function () {
+    // User
     Route::get('/users', 'App\Http\Controllers\UserController@index')->name('users.index');
     Route::get('/users/{id}', 'App\Http\Controllers\UserController@show');
     Route::get('/users/delete/{id}', 'App\Http\Controllers\UserController@delete')->name('users.delete');
 
+
+    // Home
+    Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 });
 
 Auth::routes();
