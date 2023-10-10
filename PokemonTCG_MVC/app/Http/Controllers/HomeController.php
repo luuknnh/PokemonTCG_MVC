@@ -27,6 +27,7 @@ class HomeController extends Controller
     {
 
         $cardsAmount = Card::where('id', auth()->user()->id)->count();
-        return view('home', compact('cardsAmount'));
+        $latestCardImage = Card::where('id', auth()->user()->id)->latest()->first()->image;
+        return view('home', compact('cardsAmount', 'latestCardImage'));
     }
 }

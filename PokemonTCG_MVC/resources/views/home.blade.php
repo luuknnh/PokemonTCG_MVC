@@ -24,8 +24,10 @@
                 <div class="card-header">Cards</div>
 
                 <div class="card-body">
-
-                    <a href="/cards">{{$cardsAmount}}</a>
+                    <a href="/cards">
+    <img class="rounded-t-lg w-" src="data:image/png;base64,{{ $latestCardImage }}" />
+                    <a >{{$cardsAmount}}</a>
+                   </a>
                 </div>
             </div>
         </div>

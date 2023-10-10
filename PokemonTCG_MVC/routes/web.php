@@ -20,7 +20,9 @@ Route::get('/createcard', 'App\Http\Controllers\CardController@create')->name('c
 
 // Verwerk het toevoegen van de kaart
 Route::post('/createcard', 'App\Http\Controllers\CardController@store')->name('cards.store');
-Route::get('/cards/image/{id}', 'App\Http\Controllers\CardController@image')->name('cards.image');
+
+Route::get('/card/{id}', 'App\Http\Controllers\CardController@show')->name('cards.show');
+
 
 
 });
