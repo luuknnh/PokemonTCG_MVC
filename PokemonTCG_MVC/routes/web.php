@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 
 // Users for development
-Route::get('/users', 'App\Http\Controllers\UserController@index');
-Route::get('/users/create', 'App\Http\Controllers\UserController@create');
-Route::post('/users', 'App\Http\Controllers\UserController@store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/users', 'App\Http\Controllers\UserController@index')->name('users.index');
+    Route::get('/users/{id}', 'App\Http\Controllers\UserController@show');
+    Route::get('/users/delete/{id}', 'App\Http\Controllers\UserController@delete')->name('users.delete');
 
-
-
+});
 
 Auth::routes();
 

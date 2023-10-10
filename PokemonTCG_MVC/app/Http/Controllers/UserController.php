@@ -14,22 +14,23 @@ class UserController extends Controller
         return view('users', compact('users')); 
     }
 
-    public function create()
+public function show($id)
 {
-    return view('create_user');
+    $user = User::find($id); 
+
+    return view('user', compact('user')); 
 }
 
-public function store(Request $request)
+public function delete($id)
 {
-    // Valideer en sla de nieuwe gebruiker op in de database
-    $data = $request->validate([
-        'name' => 'required',
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+    $user = User::find($id);
 
-    User::create($data); // Creëer een nieuwe gebruiker in de database
+    if (!$user) {
+        return redirect()->route('users.index')->with('error', 'Gebruiker niet gevonden');
+    }
 
-    return redirect('/users'); // Stuur de gebruiker terug naar de lijst met gebruikers
+    $user->delete();
+
+    return redirect()->route('users.index')->with('success', 'Gebruiker succesvol verwijderd');
 }
 }
