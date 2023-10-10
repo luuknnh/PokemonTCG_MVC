@@ -1,14 +1,4 @@
 CREATE TABLE
-    "User" (
-        UserId SERIAL PRIMARY KEY,
-        Username VARCHAR(255),
-        EmailAddress VARCHAR(255),
-        UserPassword VARCHAR(255),
-        CreatedOn TIMESTAMP,
-        Role VARCHAR(255)
-    );
-
-CREATE TABLE
     "Card" (
         CardId SERIAL PRIMARY KEY,
         CardName VARCHAR(255),
