@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 // Users for development
 Route::middleware(['auth'])->group(function () {
-    Route::get('/users', 'App\Http\Controllers\UserController@index');
+    Route::get('/users', 'App\Http\Controllers\UserController@index')->name('users.index');
     Route::get('/users/{id}', 'App\Http\Controllers\UserController@show');
+    Route::get('/users/delete/{id}', 'App\Http\Controllers\UserController@delete')->name('users.delete');
+
 });
 
 Auth::routes();
