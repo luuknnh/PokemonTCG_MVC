@@ -23,10 +23,9 @@ public function store(Request $request)
 {
     // Valideer en sla de nieuwe gebruiker op in de database
     $data = $request->validate([
-        'username' => 'required',
-        'emailaddress' => 'required|email',
-        'userpassword' => 'required',
-        'role' => 'required',
+        'name' => 'required',
+        'email' => 'required|email',
+        'password' => 'required',
     ]);
 
     User::create($data); // Creëer een nieuwe gebruiker in de database

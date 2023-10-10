@@ -28,8 +28,8 @@
         <label for="emailaddress">E-mailadres:</label>
         <input type="text" name="emailaddress" id="emailaddress"><br>
 
-        <label for="userpassword">Wachtwoord:</label>
-        <input type="password" name="userpassword" id="userpassword"><br>
+        <label for="password">Wachtwoord:</label>
+        <input type="password" name="password" id="password"><br>
 
         <label for="role">Rol:</label>
         <select name="role" id="role">
