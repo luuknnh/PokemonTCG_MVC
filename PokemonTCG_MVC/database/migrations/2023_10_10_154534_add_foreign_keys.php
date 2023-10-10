@@ -14,6 +14,8 @@ class AddForeignKeys extends Migration
         Schema::table('cards', function (Blueprint $table) {
             $table->foreign('cardcollection')->references('id')->on('collections');
             $table->foreign('cardwishlist')->references('id')->on('wishlists');
+                    $table->foreign('user_id')->references('id')->on('users');
+
         });
 
         Schema::table('collections', function (Blueprint $table) {

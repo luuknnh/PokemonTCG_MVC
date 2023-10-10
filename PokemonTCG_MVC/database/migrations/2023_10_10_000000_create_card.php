@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('type');
             $table->string('rarity');
-            $table->unsignedBigInteger('cardcollection');
-            $table->unsignedBigInteger('cardwishlist');
-            $table->string('image');
+            $table->unsignedBigInteger('cardcollection')->nullable();
+            $table->unsignedBigInteger('cardwishlist')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->text('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

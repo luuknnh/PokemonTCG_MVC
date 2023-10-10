@@ -12,6 +12,17 @@ Route::middleware(['auth'])->group(function () {
 
     // Home
     Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+
+    // Cards
+    Route::get('/cards', 'App\Http\Controllers\CardController@index')->name('cards.index');
+// Toon het formulier voor het toevoegen van een kaart
+Route::get('/createcard', 'App\Http\Controllers\CardController@create')->name('cards.create');
+
+// Verwerk het toevoegen van de kaart
+Route::post('/createcard', 'App\Http\Controllers\CardController@store')->name('cards.store');
+Route::get('/cards/image/{id}', 'App\Http\Controllers\CardController@image')->name('cards.image');
+
+
 });
 
 Auth::routes();

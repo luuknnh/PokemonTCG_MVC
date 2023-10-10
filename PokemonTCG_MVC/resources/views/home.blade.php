@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="w-screen h-full mt-4">
+    <div class="flex flex-col justify-center items-center gap-4">
+        <div class="w-fit">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -15,6 +15,17 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                </div>
+            </div>
+        </div>
+
+                <div class="w-fit">
+            <div class="card">
+                <div class="card-header">Cards</div>
+
+                <div class="card-body">
+
+                    <a href="/cards">{{$cardsAmount}}</a>
                 </div>
             </div>
         </div>
