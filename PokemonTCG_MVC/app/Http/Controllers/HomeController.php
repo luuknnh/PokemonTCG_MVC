@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Card; 
+
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $cardsAmount = Card::where('id', auth()->user()->id)->count();
+        $latestCardImage = Card::where('id', auth()->user()->id)->latest()->first()->image;
+        return view('home', compact('cardsAmount', 'latestCardImage'));
     }
 }
