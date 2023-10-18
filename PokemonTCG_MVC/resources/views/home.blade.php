@@ -9,9 +9,9 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
 
                     {{ __('You are logged in!') }}
@@ -19,16 +19,24 @@
             </div>
         </div>
 
-                <div class="w-fit">
+        <div class="w-fit">
             <div class="card">
-                <div class="card-header">Cards</div>
+                <a href="/cards">
+                    <div class="card-header">Cards</div>
 
-                <div class="card-body">
-                    <a href="/cards">
-    <img class="rounded-t-lg w-" src="data:image/png;base64,{{ $latestCardImage }}" />
-                    <a >{{$cardsAmount}}</a>
-                   </a>
-                </div>
+                    <div class="card-body">
+
+                        @if ($cardsAmount == 0)
+                        <img class="rounded-t-lg w-" src="" />
+                        @else
+                        <img class="rounded-t-lg w-" src="{{ $latestCardImage }}" />
+                        @endif
+                        <a>{{$cardsAmount}}</a>
+
+
+
+                    </div>
+                </a>
             </div>
         </div>
     </div>

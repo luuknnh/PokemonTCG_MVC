@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Card; 
+use Pokemon\Pokemon;
+use stdClass;
+
+
 
 
 class CardController extends Controller
@@ -12,15 +16,20 @@ class CardController extends Controller
 
 public function index()
 {
-            $cards = Card::where('user_id', auth()->user()->id)->get();
+    $cards = Card::where('user_id', auth()->user()->id)->get();
 
     return view('cards', compact('cards'));
 }
 
 public function create()
 {
-    return view('createcard');
+
+
+    $sets = Pokemon::Set()->all();
+    
+    return view('createcard', compact('sets'));
 }
+
 
 public function store(Request $request)
 {
@@ -28,21 +37,19 @@ public function store(Request $request)
         'name' => 'required',
         'type' => 'required',
         'rarity' => 'required',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Controleer bestandstype en grootte
+        'image' => 'required|url', // Controleer of het een geldige URL is
     ]);
 
-    if ($request->hasFile('image')) {
-        $image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
-        auth()->user()->cards()->create([
-            'name' => $data['name'],
-            'type' => $data['type'],
-            'rarity' => $data['rarity'],
-            'image' => $image, // Sla de base64-gecodeerde gegevens op in de database
-        ]);
-    }
+    auth()->user()->cards()->create([
+        'name' => $data['name'],
+        'type' => $data['type'],
+        'rarity' => $data['rarity'],
+        'image' => $data['image'], // Sla de URL rechtstreeks op in de database
+    ]);
 
-    return redirect()->route('cards.index')->with('success', 'Kaart is succesvol toegevoegd.');
+    return "Kaart is succesvol toegevoegd.";
 }
+
 
 
 
@@ -67,6 +74,34 @@ public function image($id)
 }
 
 
+public function searchCard(Request $request)
+{
+    $setId = $request->input('setId');
+    $cardName = $request->input('cardName');
+
+if ($setId === 'All') {
+    if ($cardName) {
+        $cards = Pokemon::Card()->where(['name' => $cardName . '*'])->all();
+    } else {
+        // Haal alle kaarten op als $cardName null is
+        $cards = Pokemon::Card()->all();
+    }
+} else {
+    if ($cardName) {
+        $cards = Pokemon::Card()->where(['set.id' => $setId, 'name' => $cardName])->all();
+    } else {
+        // Haal alle kaarten van een bepaalde set op als $cardName null is
+        $cards = Pokemon::Card()->where(['set.id' => $setId])->all();
+    }
+}
+       $formattedData = [];
+    foreach ($cards as $card) {
+        $formattedData[] = $card->toArray();
+    }
+
+    return response()->json($formattedData);
+
+}
 
     public function show($id)
     {
