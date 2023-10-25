@@ -26,8 +26,18 @@ class HomeController extends Controller
     public function index()
     {
 
-        $cardsAmount = Card::where('id', auth()->user()->id)->count();
-        $latestCardImage = Card::where('id', auth()->user()->id)->latest()->first()->image;
+        $cardsAmount = Card::where('user_id', auth()->user()->id)->count();
+
+
+
+        if ($cardsAmount == 0) {
+            $latestCardImage = null;
+        } else
+
+        $latestCardImage = Card::where('user_id', auth()->user()->id)->latest()->first()->image;
+
+
+
         return view('home', compact('cardsAmount', 'latestCardImage'));
     }
 }

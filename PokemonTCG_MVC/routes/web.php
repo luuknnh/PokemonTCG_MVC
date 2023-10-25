@@ -18,6 +18,13 @@ Route::middleware(['auth'])->group(function () {
 // Toon het formulier voor het toevoegen van een kaart
 Route::get('/createcard', 'App\Http\Controllers\CardController@create')->name('cards.create');
 
+Route::post('/searchcard', 'App\Http\Controllers\CardController@searchCard')->name('cards.search');
+
+
+// Route::get('/sets', 'App\Http\Controllers\CardController@getSets')->name('cards.sets');
+
+
+
 // Verwerk het toevoegen van de kaart
 Route::post('/createcard', 'App\Http\Controllers\CardController@store')->name('cards.store');
 

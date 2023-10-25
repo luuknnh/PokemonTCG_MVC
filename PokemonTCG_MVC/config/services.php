@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'pokemontcg' => [
+        'api_key' => env('POKEMONTCG_KEY'),
+        'base_url' => 'https://api.pokemontcg.io/v2/',
+    ],
 ];
