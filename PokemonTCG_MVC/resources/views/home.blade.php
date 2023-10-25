@@ -22,7 +22,7 @@
         <div class="w-fit">
             <div class="card">
                 <a href="/cards">
-                    <div class="card-header">Cards</div>
+                    <div class="card-header">My Cards</div>
 
                     <div class="card-body">
 
@@ -36,6 +36,28 @@
 
 
                     </div>
+                </a>
+            </div>
+        </div>
+
+        
+        <div class="w-fit">
+            <div class="card">
+                <a href="/collections">
+                    <div class="card-header">Collections</div>
+<!-- 
+                    <div class="card-body">
+
+                        @if ($cardsAmount == 0)
+                        <img class="rounded-t-lg w-" src="" />
+                        @else
+                        <img class="rounded-t-lg w-" src="{{ $latestCardImage }}" />
+                        @endif
+                        <a>{{$cardsAmount}}</a>
+
+
+
+                    </div> -->
                 </a>
             </div>
         </div>
