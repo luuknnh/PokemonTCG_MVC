@@ -31,6 +31,17 @@ Route::post('/createcard', 'App\Http\Controllers\CardController@store')->name('c
 Route::get('/card/{id}', 'App\Http\Controllers\CardController@show')->name('cards.show');
 
 
+// Collection
+Route::get('/collections', 'App\Http\Controllers\CollectionController@index')->name('collections.index');
+Route::get('/collections/owned', 'App\Http\Controllers\CollectionController@owned')->name('collections.owned');
+Route::get('/collections/create', 'App\Http\Controllers\CollectionController@create');
+Route::post('/collections', 'App\Http\Controllers\CollectionController@store')->name('collections.store');
+
+
+Route::get('/collections/{id}', 'App\Http\Controllers\CollectionController@show')->name('collections.show');
+
+
+
 
 });
 

@@ -19,7 +19,7 @@ class AddForeignKeys extends Migration
         });
 
         Schema::table('collections', function (Blueprint $table) {
-            $table->foreign('cardid')->references('id')->on('cards');
+            // $table->foreign('cardid')->references('id')->on('cards');
             $table->foreign('userid')->references('id')->on('users');
         });
 
@@ -27,7 +27,13 @@ class AddForeignKeys extends Migration
             $table->foreign('cardid')->references('id')->on('cards');
             $table->foreign('userid')->references('id')->on('users');
         });
+
+            Schema::table('collection_card', function (Blueprint $table) {
+        $table->foreign('collection_id')->references('id')->on('collections');
+        $table->foreign('card_id')->references('id')->on('cards');
+            });
     }
+
 
     /**
      * Reverse the migrations.
@@ -48,6 +54,11 @@ class AddForeignKeys extends Migration
         Schema::table('cards', function (Blueprint $table) {
             $table->dropForeign(['cardcollection']);
             $table->dropForeign(['cardwishlist']);
+        });
+
+        Schema::table('collection_card', function (Blueprint $table) {
+            $table->dropForeign(['collection_id']);
+            $table->dropForeign(['card_id']);
         });
     }
 }

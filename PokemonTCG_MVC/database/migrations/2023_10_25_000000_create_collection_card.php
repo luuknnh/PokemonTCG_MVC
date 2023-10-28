@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('collections', function (Blueprint $table) {
+        Schema::create('collection_card', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('quantity');
-            // $table->unsignedBigInteger('cardid');
-            $table->unsignedBigInteger('userid');
+            $table->unsignedBigInteger('collection_id');
+            $table->unsignedBigInteger('card_id');
             $table->timestamps();
-            $table->softDeletes();
+
         });
+    
     }
 
     /**
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('collections');
+        Schema::dropIfExists('collection_card');
     }
 };
