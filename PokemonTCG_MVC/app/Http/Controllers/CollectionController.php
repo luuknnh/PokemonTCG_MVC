@@ -19,7 +19,7 @@ class CollectionController extends Controller
     }
 
     public function index() {
-        $collections = Collection::where('active', true)->get(); 
+        $collections = Collection::where('active', true)->get();
         return view('collections.index', compact('collections'));
     }
 

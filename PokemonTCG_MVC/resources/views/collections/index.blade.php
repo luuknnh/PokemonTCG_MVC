@@ -9,15 +9,20 @@
     </div>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         @foreach ($collections as $collection)
-        <div class="bg-white overflow-hidden shadow rounded-lg">
-            <a href="/collections/{{ $collection->id }}">
-                <img class="w-full h-64 object-contain object-center" src="{{ $collection->cards[0]->image }}"
-                    alt="{{ $collection->name }}">
-            </a>
-            <div class="p-4">
-                <a href="/collections/{{ $collection->id }}"
-                    class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{ $collection->name }}</a>
-                <p class="mt-2 text-gray-500">Aantal kaarten: {{ $collection->quantity }}</p>
+        <div class="bg-white overflow-hidden shadow rounded-lg flex flex-col">
+            <div>
+                <a href="/collections/{{ $collection->id }}">
+                    <img class="w-full h-64 object-contain object-center" src="{{ $collection->cards[0]->image }}"
+                        alt="{{ $collection->name }}">
+                </a>
+            </div>
+            <div class="flex justify-between items-center p-4">
+                <div>
+                    <a href="/collections/{{ $collection->id }}"
+                        class="block text-lg font-medium text-black hover:underline">{{ $collection->name }}</a>
+                    <p class="mt-2 text-gray-500">Cards: {{ $collection->quantity }}</p>
+                </div>
+                <div class="text-gray-500">{{ $collection->user->name }}</div>
             </div>
         </div>
         @endforeach
