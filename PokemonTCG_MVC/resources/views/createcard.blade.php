@@ -113,10 +113,13 @@ function addCardToUser(cardData) {
         },
         success: function(response) {
             console.log(response);
+            document.getElementById('successMessage').style.display = 'block';
+
         },
         error: function(xhr, status, error) {
             var err = JSON.parse(xhr.responseText);
             console.log(err.message);
+            document.getElementById('errorMessage').style.display = 'block';
         }
     });
 }
@@ -166,6 +169,15 @@ function addCardToUser(cardData) {
         <div id="cardContainer" class=" mt-12 grid grid-cols-3 gap-2 ">
         </div>
     </div>
+</div>
+
+<div id="successMessage" class="fixed bottom-4 right-4 bg-green-500 text-white font-bold py-2 px-4 rounded-lg"
+    style="display: none;">
+    Card has been added.
+</div>
+<div id="errorMessage" class="fixed bottom-4 right-4 bg-red-500 text-white font-bold py-2 px-4 rounded-lg"
+    style="display: none;">
+    Error message here.
 </div>
 
 <!-- <form method="POST" action="{{ route('cards.store') }}" enctype="multipart/form-data">

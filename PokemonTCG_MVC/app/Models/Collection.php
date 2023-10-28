@@ -9,7 +9,7 @@ class Collection extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'userid', 'quantity'];
+    protected $fillable = ['name', 'userid', 'quantity', 'active'];
 
     protected $attributes = [
         'quantity' => 0, 

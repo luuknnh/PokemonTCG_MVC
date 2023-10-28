@@ -47,7 +47,7 @@ public function store(Request $request)
         'image' => $data['image'], // Sla de URL rechtstreeks op in de database
     ]);
 
-    return "Kaart is succesvol toegevoegd.";
+    return "Card has been added.";
 }
 
 

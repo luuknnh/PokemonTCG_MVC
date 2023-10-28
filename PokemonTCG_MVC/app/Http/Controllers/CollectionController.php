@@ -19,9 +19,10 @@ class CollectionController extends Controller
     }
 
     public function index() {
-        $collections = Collection::all(); 
+        $collections = Collection::where('active', true)->get(); 
         return view('collections.index', compact('collections'));
     }
+
 
     public function owned()
     {
@@ -32,7 +33,7 @@ class CollectionController extends Controller
     
     public function create()
     {
-        $cards = Card::all(); 
+        $cards = Card::where('user_id', auth()->user()->id)->get(); 
         return view('collections.create', ['cards' => $cards]);
     }
 
@@ -44,6 +45,7 @@ class CollectionController extends Controller
     
         $validatedData = $request->validate([
             'name'=> 'required|string',
+            'active' => 'required|boolean', 
             'cardids' => 'required', 
             'cardids.*' => 'required|exists:cards,id', 
             // Controleert of elk ID in de array bestaat in de kaarten database
@@ -53,13 +55,33 @@ class CollectionController extends Controller
         $userid = auth()->user()->id;
     
         $collection = Collection::create([
-            'name' => $validatedData['name'], 
             'userid' => $userid,
+            'name' => $validatedData['name'], 
+            'active' => $validatedData['active'],
             'quantity'=> count($cardIds),
         ]);
         $collection->cards()->attach($cardIds);
     
-        return redirect('/collections')->with('success', 'Collectie is succesvol aangemaakt.');
+        return redirect('/collections')->with('success', 'Collection has been created.');
     }   
     
+public function updateStatus(Request $request, $id)
+{
+    $collection = Collection::findOrFail($id);
+
+    $user = auth()->user();
+    $userCreatedDate = $user->created_at; 
+    $oneDayAgo = now()->subDays(1);
+
+    if ($userCreatedDate <= $oneDayAgo) {
+        $collection->active = $request->has('active');
+        $collection->save();
+
+        return redirect('/collections/owned')->with('success', 'Collection status has been updated.');
+    } else {
+        return redirect('/collections/owned')->with('error', 'User cannot update collection status within one day of registration.');
+    }
+}
+
+
 }

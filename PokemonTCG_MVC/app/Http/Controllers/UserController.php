@@ -29,8 +29,15 @@ public function delete($id)
         return redirect()->route('users.index')->with('error', 'Gebruiker niet gevonden');
     }
 
+    foreach ($user->collections as $collection) {
+        $collection->delete();
+    }
+
     $user->delete();
 
     return redirect()->route('users.index')->with('success', 'Gebruiker succesvol verwijderd');
 }
+
+
+
 }
