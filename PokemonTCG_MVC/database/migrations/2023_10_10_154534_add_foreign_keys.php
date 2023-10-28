@@ -9,30 +9,29 @@ class AddForeignKeys extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
-    {
-        Schema::table('cards', function (Blueprint $table) {
-            $table->foreign('cardcollection')->references('id')->on('collections');
-            $table->foreign('cardwishlist')->references('id')->on('wishlists');
-                    $table->foreign('user_id')->references('id')->on('users');
+public function up()
+{
+    Schema::table('cards', function (Blueprint $table) {
+        $table->foreign('cardcollection')->references('id')->on('collections');
+        $table->foreign('cardwishlist')->references('id')->on('wishlists');
+        $table->foreign('user_id')->references('id')->on('users');
+    });
 
-        });
+    Schema::table('collections', function (Blueprint $table) {
+        $table->foreign('userid')->references('id')->on('users');
+    });
 
-        Schema::table('collections', function (Blueprint $table) {
-            // $table->foreign('cardid')->references('id')->on('cards');
-            $table->foreign('userid')->references('id')->on('users');
-        });
+    Schema::table('wishlists', function (Blueprint $table) {
+        $table->foreign('cardid')->references('id')->on('cards');
+        $table->foreign('userid')->references('id')->on('users');
+    });
 
-        Schema::table('wishlists', function (Blueprint $table) {
-            $table->foreign('cardid')->references('id')->on('cards');
-            $table->foreign('userid')->references('id')->on('users');
-        });
-
-            Schema::table('collection_card', function (Blueprint $table) {
+    Schema::table('collection_card', function (Blueprint $table) {
         $table->foreign('collection_id')->references('id')->on('collections');
         $table->foreign('card_id')->references('id')->on('cards');
-            });
-    }
+    });
+}
+
 
 
     /**
@@ -62,4 +61,3 @@ class AddForeignKeys extends Migration
         });
     }
 }
-

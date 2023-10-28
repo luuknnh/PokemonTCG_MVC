@@ -39,6 +39,8 @@ Route::post('/collections', 'App\Http\Controllers\CollectionController@store')->
 
 
 Route::get('/collections/{id}', 'App\Http\Controllers\CollectionController@show')->name('collections.show');
+Route::put('/collections/{id}/updateStatus', 'App\Http\Controllers\CollectionController@updateStatus')->name('collections.updateStatus');
+
 
 
 

@@ -21,5 +21,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Card::class);
     }
-}
 
+public function collections()
+{
+    return $this->hasMany(Collection::class, 'userid', 'id');
+}
+}

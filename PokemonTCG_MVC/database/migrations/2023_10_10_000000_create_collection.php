@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('quantity');
-            // $table->unsignedBigInteger('cardid');
+            $table->boolean('active');
             $table->unsignedBigInteger('userid');
             $table->timestamps();
             $table->softDeletes();
