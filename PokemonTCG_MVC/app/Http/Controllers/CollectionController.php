@@ -69,12 +69,21 @@ public function updateStatus(Request $request, $id)
 {
     $collection = Collection::findOrFail($id);
 
+    $validatedData = $request->validate([
+        'name' => 'nullable|string',
+    ]);
+
     $user = auth()->user();
     $userCreatedDate = $user->created_at; 
     $oneDayAgo = now()->subDays(1);
 
     if ($userCreatedDate <= $oneDayAgo) {
         $collection->active = $request->has('active');
+
+        if ($request->has('name')) {
+            $collection->name = $validatedData['name'];
+        }
+
         $collection->save();
 
         return redirect('/collections/owned')->with('success', 'Collection status has been updated.');
