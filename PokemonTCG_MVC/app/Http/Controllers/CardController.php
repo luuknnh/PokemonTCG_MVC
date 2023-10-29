@@ -18,7 +18,7 @@ public function index()
 {
     $cards = Card::where('user_id', auth()->user()->id)->get();
 
-    return view('cards', compact('cards'));
+    return view('cards.index', compact('cards'));
 }
 
 public function create()
@@ -27,7 +27,7 @@ public function create()
 
     $sets = Pokemon::Set()->all();
     
-    return view('createcard', compact('sets'));
+    return view('cards.create', compact('sets'));
 }
 
 
@@ -106,7 +106,7 @@ if ($setId === 'All') {
     public function show($id)
     {
         $card = Card::find($id);
-        return view('card', compact('card'));
+        return view('cards.show', compact('card'));
     }
 
 }

@@ -45,7 +45,6 @@ class CollectionController extends Controller
     
         $validatedData = $request->validate([
             'name'=> 'required|string',
-            'active' => 'required|boolean', 
             'cardids' => 'required', 
             'cardids.*' => 'required|exists:cards,id', 
             // Controleert of elk ID in de array bestaat in de kaarten database
@@ -53,11 +52,13 @@ class CollectionController extends Controller
         
     
         $userid = auth()->user()->id;
+
+        $active = $request->has('active') ? true : false;
     
         $collection = Collection::create([
             'userid' => $userid,
             'name' => $validatedData['name'], 
-            'active' => $validatedData['active'],
+            'active' => $active,
             'quantity'=> count($cardIds),
         ]);
         $collection->cards()->attach($cardIds);
