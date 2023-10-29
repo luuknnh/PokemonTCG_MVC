@@ -4,9 +4,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['auth'])->group(function () {
+
+    // Admin
+    Route::middleware(['admin'])->get('/users', 'App\Http\Controllers\UserController@index')->name('users.index');
+
+    
     // User
-    Route::get('/users', 'App\Http\Controllers\UserController@index')->name('users.index');
-    Route::get('/users/{id}', 'App\Http\Controllers\UserController@show');
+    Route::get('/users/profile', 'App\Http\Controllers\UserController@show')->name('users.show');
+    Route::put('/users/profile', 'App\Http\Controllers\UserController@update')->name('users.update');
     Route::get('/users/delete/{id}', 'App\Http\Controllers\UserController@delete')->name('users.delete');
 
 

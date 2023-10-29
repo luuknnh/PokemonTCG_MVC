@@ -51,7 +51,9 @@
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
+                        <a class="dropdown-item" href="{{ route('users.show') }}">
+                            My Account
+                        </a>
                         <a class="dropdown-item" href="{{ route('collections.owned') }}">
                             My Collections
                         </a>
