@@ -104,15 +104,13 @@ class CollectionController extends Controller
         return redirect('/collections')->with('success', 'Collection has been created.');
     }
         
+
     /**
      * Update the status of a collection.
      *
-     * @param \Illuminate\Http\Request 
-     * $request The HTTP request containing the collection data.
-     * @param int 
-     * $id The ID of the collection to update.
-     * @return \Illuminate\Http\RedirectResponse 
-     * Returns a redirect response after updating the collection status.
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function updateStatus(Request $request, $id)
     {

@@ -80,27 +80,29 @@ public function store(Request $request)
  */
 public function searchCard(Request $request)
 {
-    // Retrieve the 'setId' and 'cardName' from the request
     $setId = $request->input('setId');
     $cardName = $request->input('cardName');
 
-    // Determine the cards query based on the provided parameters
-    if ($setId === 'All') {
-        $cardsQuery = $cardName ? Pokemon::Card()->where(['name' => $cardName . '*']) : Pokemon::Card();
+if ($setId === 'All') {
+    if ($cardName) {
+        $cards = Pokemon::Card()->where(['name' => $cardName . '*'])->all();
     } else {
-        $cardsQuery = $cardName ? Pokemon::Card()->where(['set.id' => $setId, 'name' => $cardName]) : Pokemon::Card()->where(['set.id' => $setId]);
+        $cards = Pokemon::Card()->all();
+    }
+} else {
+    if ($cardName) {
+        $cards = Pokemon::Card()->where(['set.id' => $setId, 'name' => $cardName])->all();
+    } else {
+        $cards = Pokemon::Card()->where(['set.id' => $setId])->all();
+    }
+}
+       $formattedData = [];
+    foreach ($cards as $card) {
+        $formattedData[] = $card->toArray();
     }
 
-    // Get the search results based on the constructed query
-    $cards = $cardsQuery->get();
-
-    // Convert the card objects to arrays
-    $formattedData = $cards->map(function ($card) {
-        return $card->toArray();
-    });
-
-    // Return the search results as a JSON response
     return response()->json($formattedData);
+
 }
 
 
