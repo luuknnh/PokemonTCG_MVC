@@ -6,18 +6,30 @@
 <script>
 let debounceTimer;
 
+/**
+ * Debounces a function call to prevent it from being called too frequently.
+ *
+ * @param {Function} func - The function to be debounced.
+ * @param {number} delay - The delay in milliseconds before the function is called.
+ */
 function debounce(func, delay) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(func, delay);
 }
 
+/**
+ * Searches for a card in the collection based on the set ID and card name.
+ *
+ * @param {string} setId - The ID of the set to search in.
+ * @param {string} cardName - The name of the card to search for.
+ */
 function searchCardCollection(setId, cardName) {
-    document.getElementById('loader').style.display = 'block'; // Toon de laadindicator
-
-
-
+    document.getElementById('loader').style.display = 'block';
 }
 
+/**
+ * Handles the input change event and debounces the search function call.
+ */
 function handleInputChange() {
     debounce(function() {
         searchCardCollection(document.querySelector('.search-dropdown').value, document.getElementById(
@@ -26,21 +38,33 @@ function handleInputChange() {
 }
 
 
-function searchCardCollection(setId, cardName) {
+/**
+ * This function sends an AJAX request to search for a card in the database based on the set ID and card name.
+ * It then dynamically creates HTML elements to display the search results and allows the user to add a card to their collection.
+ *
+ * @param int $setId The ID of the set to search for the card in.
+ * @param string $cardName The name of the card to search for.
+ * @return void
+ */
+function searchCardCollection($setId, $cardName) {
+    // Display loader while AJAX request is being made
     document.getElementById('loader').style.display = 'block';
 
+    // Send AJAX request to search for card
     $.ajax({
         type: 'POST',
         url: '/searchcard',
         data: {
             _token: "{{ csrf_token() }}",
-            setId: setId,
-            cardName: cardName
+            setId: $setId,
+            cardName: $cardName
         },
         success: function(response) {
+            // Clear previous search results
             var cardContainer = document.getElementById('cardContainer');
             cardContainer.innerHTML = "";
 
+            // Loop through search results and create HTML elements to display each card
             response.forEach(function(card) {
                 var cardName = card.name;
                 var cardImage = card.images.small;
@@ -65,7 +89,7 @@ function searchCardCollection(setId, cardName) {
                     'dark:bg-gray-800',
                     'dark:hover:bg-gray-700');
 
-                // Zet de kaartgegevens om in een JSON-geformatteerde tekenreeks
+
                 var cardData = JSON.stringify({
                     name: card.name,
                     type: card.number,
@@ -91,19 +115,28 @@ function searchCardCollection(setId, cardName) {
             });
         },
         error: function(xhr, status, error) {
+            // Display error message if AJAX request fails
             var err = JSON.parse(xhr.responseText);
             console.log(err.message);
         }
     });
 }
 
-function addCardToUser(cardData) {
-    var card = JSON.parse(cardData);
-    console.log(cardData)
+/**
+ * This function sends an AJAX request to add a card to the user's collection.
+ *
+ * @param string $cardData The card data to add to the user's collection.
+ * @return void
+ */
+function addCardToUser($cardData) {
+    // Parse card data from JSON string
+    var card = JSON.parse($cardData);
+    console.log($cardData)
 
+    // Send AJAX request to add card to user's collection
     $.ajax({
         type: 'POST',
-        url: '/createcard',
+        url: '/cards/create',
         data: {
             _token: "{{ csrf_token() }}",
             name: card.name,
@@ -112,11 +145,13 @@ function addCardToUser(cardData) {
             image: card.image
         },
         success: function(response) {
+            // Display success message if AJAX request succeeds
             console.log(response);
             document.getElementById('successMessage').style.display = 'block';
 
         },
         error: function(xhr, status, error) {
+            // Display error message if AJAX request fails
             var err = JSON.parse(xhr.responseText);
             console.log(err.message);
             document.getElementById('errorMessage').style.display = 'block';

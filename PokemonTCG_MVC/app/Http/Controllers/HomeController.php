@@ -18,26 +18,29 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+
     /**
-     * Show the application dashboard.
+     * Display the home page with user's card information.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\View\View 
+     * Returns the view for displaying the home page.
      */
     public function index()
     {
-
+        // Get the count of cards belonging to the current authenticated user
         $cardsAmount = Card::where('user_id', auth()->user()->id)->count();
 
+        // Initialize $latestCardImage to null
+        $latestCardImage = null;
 
+        // Check if the user has any cards
+        if ($cardsAmount > 0) {
+            // Get the latest card image of the current authenticated user
+            $latestCardImage = Card::where('user_id', auth()->user()->id)->latest()->first()->image;
+        }
 
-        if ($cardsAmount == 0) {
-            $latestCardImage = null;
-        } else
-
-        $latestCardImage = Card::where('user_id', auth()->user()->id)->latest()->first()->image;
-
-
-
+        // Pass the card count and the latest card image to the view
         return view('home', compact('cardsAmount', 'latestCardImage'));
     }
+
 }

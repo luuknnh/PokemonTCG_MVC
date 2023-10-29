@@ -15,12 +15,14 @@
                     alt="{{ $collection->name }}">
             </a>
             <div class="p-4">
-                <a href="/collections/{{ $collection->id }}"
-                    class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{ $collection->name }}</a>
-                <p class="mt-2 text-gray-500"> Cards: {{ $collection->quantity }}</p>
                 <form action="{{ route('collections.updateStatus', ['id' => $collection->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <input type="text" name="name" id="name" value="{{ $collection->name }}"
+                            class="mt-1 p-2 border border-gray-300 rounded-md">
+                    </div>
                     <label for="active" class="flex items-center">
                         <input id="active" name="active" type="checkbox" class="form-checkbox"
                             {{ $collection->active ? 'checked' : '' }}>
@@ -55,10 +57,17 @@
     @endif
 
     <script>
+    /**
+     * Perform actions when the DOM content has been loaded.
+     */
     document.addEventListener('DOMContentLoaded', function() {
+        // Select all buttons with attribute [x-data="{ show: true }"]
         var buttons = document.querySelectorAll('[x-data="{ show: true }"] button');
+
+        // Add a click event listener to each button
         buttons.forEach(function(button) {
             button.addEventListener('click', function() {
+                // Hide the alert when clicked
                 this.parentNode.parentNode.style.display = 'none';
             });
         });
