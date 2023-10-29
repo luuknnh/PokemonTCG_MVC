@@ -15,31 +15,19 @@ Route::middleware(['auth'])->group(function () {
 
     // Cards
     Route::get('/cards', 'App\Http\Controllers\CardController@index')->name('cards.index');
-// Toon het formulier voor het toevoegen van een kaart
-Route::get('/cards/create', 'App\Http\Controllers\CardController@create')->name('cards.create');
-
-Route::post('/searchcard', 'App\Http\Controllers\CardController@searchCard')->name('cards.search');
-
-
-// Route::get('/sets', 'App\Http\Controllers\CardController@getSets')->name('cards.sets');
-
-
-
-// Verwerk het toevoegen van de kaart
-Route::post('/cards/create', 'App\Http\Controllers\CardController@store')->name('cards.store');
-
-Route::get('/card/{id}', 'App\Http\Controllers\CardController@show')->name('cards.show');
+    Route::get('/cards/create', 'App\Http\Controllers\CardController@create')->name('cards.create');
+    Route::post('/searchcard', 'App\Http\Controllers\CardController@searchCard')->name('cards.search');
+    Route::post('/cards/create', 'App\Http\Controllers\CardController@store')->name('cards.store');
+    Route::get('/card/{id}', 'App\Http\Controllers\CardController@show')->name('cards.show');
 
 
 // Collection
-Route::get('/collections', 'App\Http\Controllers\CollectionController@index')->name('collections.index');
-Route::get('/collections/owned', 'App\Http\Controllers\CollectionController@owned')->name('collections.owned');
-Route::get('/collections/create', 'App\Http\Controllers\CollectionController@create');
-Route::post('/collections', 'App\Http\Controllers\CollectionController@store')->name('collections.store');
-
-
-Route::get('/collections/{id}', 'App\Http\Controllers\CollectionController@show')->name('collections.show');
-Route::put('/collections/{id}/updateStatus', 'App\Http\Controllers\CollectionController@updateStatus')->name('collections.updateStatus');
+    Route::get('/collections', 'App\Http\Controllers\CollectionController@index')->name('collections.index');
+    Route::get('/collections/owned', 'App\Http\Controllers\CollectionController@owned')->name('collections.owned');
+    Route::get('/collections/create', 'App\Http\Controllers\CollectionController@create');
+    Route::post('/collections', 'App\Http\Controllers\CollectionController@store')->name('collections.store');
+    Route::get('/collections/{id}', 'App\Http\Controllers\CollectionController@show')->name('collections.show');
+    Route::post('/collections/{id}/updateStatus', 'App\Http\Controllers\CollectionController@updateStatus')->name('collections.updateStatus');
 
 
 

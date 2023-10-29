@@ -17,7 +17,6 @@
             <div class="p-4">
                 <form action="{{ route('collections.updateStatus', ['id' => $collection->id]) }}" method="POST">
                     @csrf
-                    @method('PUT')
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                         <input type="text" name="name" id="name" value="{{ $collection->name }}"
@@ -32,6 +31,7 @@
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Update
                         status</button>
                 </form>
+
             </div>
         </div>
         @endforeach
