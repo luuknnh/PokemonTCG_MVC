@@ -57,10 +57,17 @@
     @endif
 
     <script>
+    /**
+     * Perform actions when the DOM content has been loaded.
+     */
     document.addEventListener('DOMContentLoaded', function() {
+        // Select all buttons with attribute [x-data="{ show: true }"]
         var buttons = document.querySelectorAll('[x-data="{ show: true }"] button');
+
+        // Add a click event listener to each button
         buttons.forEach(function(button) {
             button.addEventListener('click', function() {
+                // Hide the alert when clicked
                 this.parentNode.parentNode.style.display = 'none';
             });
         });

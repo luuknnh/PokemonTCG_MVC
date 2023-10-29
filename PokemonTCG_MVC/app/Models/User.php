@@ -17,13 +17,27 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-        public function cards()
+    /**
+     * Get the cards associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany 
+     * Returns the relationship between the user and its cards.
+     */
+    public function cards()
     {
         return $this->hasMany(Card::class);
     }
 
-public function collections()
-{
-    return $this->hasMany(Collection::class, 'userid', 'id');
-}
+
+    /**
+     * Get the collections associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany 
+     * Returns the relationship between the user and its collections.
+     */
+    public function collections()
+    {
+        return $this->hasMany(Collection::class, 'userid', 'id');
+    }
+
 }

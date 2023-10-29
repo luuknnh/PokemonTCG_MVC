@@ -72,27 +72,57 @@
 <script>
 var selectedCards = [];
 
+/**
+ * Add a card to the list of selected cards.
+ * 
+ * @param {number} cardId The ID of the card to add.
+ * @param {string} cardName The name of the card to add.
+ */
 function addCard(cardId, cardName) {
+    // Push the card object with ID and name to the selectedCards array
     selectedCards.push({
         id: cardId,
         name: cardName
     });
+
+    // Call the function to update the list of selected cards in the view
     updateSelectedCards();
 }
 
+
+/**
+ * Update the list of selected cards in the view.
+ */
 function updateSelectedCards() {
+    // Clear the list of selected cards
     $("#selected-cards-list").empty();
+
+    // Extract the IDs of the selected cards
     var cardIds = selectedCards.map(card => card.id);
+
+    // Set the value of the hidden input field to a JSON string of the card IDs
     $("#cardids").val(JSON.stringify(cardIds));
+
+    // Add each selected card to the list in the view
     selectedCards.forEach(function(card) {
         $("#selected-cards-list").append("<li>" + card.name + "</li>");
     });
+
+    // Log the selected cards to the console for debugging purposes
     console.log(selectedCards);
 }
 
-
+/**
+ * Perform actions when the document is ready.
+ */
 $(document).ready(function() {
+    /**
+     * Perform actions when a form is submitted.
+     * 
+     * @param {Event} e The submit event.
+     */
     $("form").submit(function(e) {
+        // Call the function to update the list of selected cards before form submission
         updateSelectedCards();
     });
 });
